@@ -51,14 +51,6 @@ jobs:
       - name: Create test-output folder if missing
         run: mkdir -p test-output
 
-      - name: Upload TestNG results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: testng-results
-          path: test-output/
-          if-no-files-found: ignore
-
       - name: Upload screenshots
         if: always()
         uses: actions/upload-artifact@v4
