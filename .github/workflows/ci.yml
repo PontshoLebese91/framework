@@ -42,16 +42,14 @@ jobs:
       - name: Run Maven tests
         run: mvn clean test
 
-- name: List root files
-  run: ls -la
+      - name: List root files
+        run: ls -la
 
-- name: List test-output directory (if exists)
-  run: ls -la test-output || echo "test-output folder does not exist"
+      - name: List test-output directory (if exists)
+        run: ls -la test-output || echo "test-output folder does not exist"
 
-- name: Create test-output folder if missing
-  run: mkdir -p test-output
-
-
+      - name: Create test-output folder if missing
+        run: mkdir -p test-output
 
       - name: Upload TestNG results
         if: always()
@@ -66,4 +64,4 @@ jobs:
         with:
           name: screenshots
           path: test-output/screenshots/
-          if-no-files-found: ignore
+        if-no-files-found: ignore
