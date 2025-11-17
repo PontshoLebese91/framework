@@ -57,6 +57,7 @@ jobs:
         with:
           name: testng-results
           path: test-output/
+          if-no-files-found: ignore
 
       - name: Upload screenshots
         if: always()
@@ -64,4 +65,4 @@ jobs:
         with:
           name: screenshots
           path: test-output/screenshots/
-        if-no-files-found: ignore
+          if-no-files-found: ignore
