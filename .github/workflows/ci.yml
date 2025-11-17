@@ -12,9 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout the code
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # 2️⃣ Set up Java 17
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
@@ -22,35 +24,42 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      # 3️⃣ Install Google Chrome
       - name: Install Chrome
         run: |
           sudo apt-get update
-          sudo apt-get install -y wget unzip
-          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo apt install -y ./google-chrome-stable_current_amd64.deb
+          sudo apt-get install -y google-chrome-stable
 
-      - name: Install ChromeDriver
-        run: |
-          CHROME_VERSION=$(google-chrome --version | awk '{print $3}')
-          MAJOR=$(echo $CHROME_VERSION | cut -d '.' -f 1)
-          DRIVER_VERSION=$(wget -qO- https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$MAJOR)
-          wget https://chromedriver.storage.googleapis.com/$DRIVER_VERSION/chromedriver_linux64.zip
-          unzip chromedriver_linux64.zip
-          sudo mv chromedriver /usr/local/bin/
-          sudo chmod +x /usr/local/bin/chromedriver
+      # 4️⃣ Verify Chrome installation
+      - name: Check Chrome version
+        run: google-chrome --version
 
+      # 5️⃣ Run Maven tests (WebDriverManager auto-handles ChromeDriver)
       - name: Run Maven tests
         run: mvn clean test
 
+      # 6️⃣ List root files (debug)
       - name: List root files
         run: ls -la
 
-      - name: List test-output directory (if exists)
+      # 7️⃣ List test-output directory (if exists)
+      - name: List test-output directory
         run: ls -la test-output || echo "test-output folder does not exist"
 
+      # 8️⃣ Ensure test-output folder exists
       - name: Create test-output folder if missing
         run: mkdir -p test-output
 
+      # 9️⃣ Upload TestNG results
+      - name: Upload TestNG results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: testng-results
+          path: test-output/
+          if-no-files-found: ignore
+
+      # 🔟 Upload screenshots
       - name: Upload screenshots
         if: always()
         uses: actions/upload-artifact@v4
