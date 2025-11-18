@@ -5,6 +5,7 @@ public class loginTest extends base{
 
     @Test
     public void verifyLoginWorks(){
+
         loginPage LoginPage = new loginPage(driver);
         loginPage.enterUsername("admin");
         loginPage.enterPassword("pass");
