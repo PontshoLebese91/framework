@@ -1,3 +1,5 @@
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,6 +10,8 @@ import org.testng.annotations.BeforeMethod;
 public class base {
 
     protected WebDriver driver;
+    protected ExtentTest test;
+    protected ExtentReports extent;
 
     @BeforeMethod
     public void setup() {
@@ -26,6 +30,7 @@ public class base {
         // Initialize driver with options
         driver = new ChromeDriver(options);
         driver.get("https://adactinhotelapp.com//"); // Change to your test URL
+
     }
 
     @AfterMethod
@@ -33,5 +38,7 @@ public class base {
         if (driver != null) {
             driver.quit();
         }
+
     }
+
 }

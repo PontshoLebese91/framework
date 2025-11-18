@@ -5,4 +5,8 @@
             <package name="tests"/>
         </packages>
     </test>
+
+    <listeners>
+        <listener class-name="utilities.TestListener"/>
+    </listeners>
 </suite>
