@@ -12,7 +12,7 @@ public class loginTest extends base{
     @Test
     public void verifyLoginWorks() {
 
-        ExtentSparkReporter spark = new ExtentSparkReporter("test-output/ExtentReport.html");
+        ExtentSparkReporter spark = new ExtentSparkReporter("test-output/ExtentReport222.html");
         ExtentReports extent = new ExtentReports();
         extent.attachReporter(spark);
         extent.setSystemInfo("Tester","Pontsho");
@@ -25,7 +25,7 @@ public class loginTest extends base{
 
             System.out.println("Login test executed successfully.");
 
-            test.pass("Login test executed successfully.");
+            test.pass("Login test executed successfully..");
             extent.flush();
         }
         catch(Exception e)
