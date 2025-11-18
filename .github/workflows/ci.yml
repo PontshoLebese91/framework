@@ -43,8 +43,8 @@ jobs:
         run: ls -la
 
       # 7️⃣ List test-output directory (if exists)
-      - name: List test-output directory
-        run: ls -la test-output || echo "test-output folder does not exist"
+      - name: List target/test-output directory
+        run: ls -la target/test-output || echo "target/test-output folder does not exist"
 
       # 8️⃣ Ensure test-output folder exists
       - name: Create test-output folder if missing
@@ -56,7 +56,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: testng-results
-          path: test-output/
+          path: target/test-output/
           if-no-files-found: ignore
 
       # 🔟 Upload screenshots
@@ -65,5 +65,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: screenshots
-          path: test-output/screenshots/
+          path: target/test-output/screenshots/
           if-no-files-found: ignore
